@@ -13,3 +13,6 @@
 '''
 
 VLANS = [10, 20, 30, 1, 2, 100, 10, 30, 3, 4, 10]
+uniq_vlans = [i for i in set(VLANS)]
+uniq_vlans.sort()
+print(uniq_vlans)

@@ -9,3 +9,5 @@
 '''
 
 MAC = 'AAAA:BBBB:CCCC'
+mac_hex = ''.join(MAC.split(':'))
+print(bin(int(mac_hex, 16)))

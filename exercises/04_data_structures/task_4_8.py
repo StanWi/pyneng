@@ -19,3 +19,6 @@
 '''
 
 IP = '192.168.3.1'
+ip_list = [int(i) for i in IP.split('.')]
+print('{:<8} {:<8} {:<8} {:<8}'.format(ip_list[0],ip_list[1],ip_list[2],ip_list[3]))
+print('{:08b} {:08b} {:08b} {:08b}'.format(ip_list[0],ip_list[1],ip_list[2],ip_list[3]))
