@@ -19,3 +19,27 @@ Mask:
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+ip_mask = input('Введите IP-сети: ')
+tmp = ip_mask.split('/')
+ip = [int(i) for i in tmp[0].split('.')]
+nmask = int(tmp[1])
+mask = ''
+for i in range(32):
+    if i < nmask:
+        mask += '1'
+    else:
+        mask += '0'
+m = [int(mask[8*i:8*(i+1)], 2) for i in range(4)]
+
+template = '''
+Network:
+{i0:<8} {i1:<8} {i2:<8} {i3:<8}
+{i0:08b} {i1:08b} {i2:08b} {i3:08b}
+
+Mask:
+/{m}
+{m0:<8} {m1:<8} {m2:<8} {m3:<8}
+{m0:08b} {m1:08b} {m2:08b} {m3:08b}
+'''
+print(template.format(i0=i[0],i1=i[1],i2=ip[2],i3=ip[3],
+                      m=nmask,m0=m[0],m1=m[1],m2=m[2],m3=m[3]))
