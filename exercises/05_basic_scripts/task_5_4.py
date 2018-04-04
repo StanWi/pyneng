@@ -17,3 +17,11 @@ num_list = [10, 2, 30, 100, 10, 50, 11, 30, 15, 7]
 word_list = [
     'python', 'ruby', 'perl', 'ruby', 'perl', 'python', 'ruby', 'perl'
 ]
+
+x_list = num_list
+x = input('Введите элемент (варианты {}): '.format(' '.join(str(i) for i in sorted(set(x_list)))))
+print(len(x_list) - [str(i) for i in x_list[::-1]].index(x) - 1)
+
+x_list = word_list
+x = input('Введите элемент (варианты {}): '.format(' '.join(str(i) for i in sorted(set(x_list)))))
+print(len(x_list) - [str(i) for i in x_list[::-1]].index(x) - 1)
