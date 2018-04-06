@@ -13,4 +13,16 @@
 
 '''
 
+from sys import argv
+
 ignore = ['duplex', 'alias', 'Current configuration']
+
+file = argv[1]
+
+with open(file) as f, open('config_sw1_cleared.txt', 'w') as w:
+    for line in f:
+        for phrase in ignore:
+            if phrase in line:
+                break
+        else:
+            w.write(line)
