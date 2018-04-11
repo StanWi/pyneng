@@ -27,3 +27,19 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+
+def parse_cdp_neighbors(string):
+    topology = {}
+    for line in string.rstrip().split('\n'):
+        if 'show cdp neighbors' in line:
+            device = line.split('>')[0]
+        elif len(line.split()) == 10: 
+            link = line.split()
+            topology[(device, link[1] + link[2])] = (link[0], link[8] + link[9])
+    return topology
+
+if __name__ == '__main__':
+    with open('sw1_sh_cdp_neighbors.txt') as f:
+        string = f.read()
+    print(parse_cdp_neighbors(string))

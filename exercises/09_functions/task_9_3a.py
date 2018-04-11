@@ -23,3 +23,25 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+def get_int_vlan_map(config):
+    access = {}
+    trunk = {}
+    with open(config) as f:
+        interface = ''
+        for line in f:
+            if line.startswith('interface'):
+                if interface:
+                    access[interface] = 1
+                interface = line.split()[1]
+            elif line.lstrip().startswith('switchport access vlan'):
+                access[interface] = line.split()[3]
+                interface = ''
+            elif line.lstrip().startswith('switchport trunk allowed vlan'):
+                trunk[interface] = line.split()[4].split(',')
+                interface = ''
+    return access, trunk
+
+access, trunk = get_int_vlan_map('config_sw2.txt')
+print(access)
+print(trunk)

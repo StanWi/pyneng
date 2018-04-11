@@ -36,3 +36,18 @@ def ignore_command(command, ignore):
     * False - если нет
     '''
     return any(word in command for word in ignore)
+
+def switch_config(file):
+    config = {}
+    with open(file) as f:
+        for command in f:
+            if not ignore_command(command, ignore) and not command.startswith('!') and command.strip() != '':
+                if not command.startswith(' '):
+                    upper_command = command.strip()
+                    config[upper_command] = []
+                else:
+                    config[upper_command].append(command.strip())
+    return config
+
+print(switch_config('config_sw1.txt'))
+                    

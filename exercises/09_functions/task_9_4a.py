@@ -49,3 +49,29 @@ def check_ignore(command, ignore):
 
     '''
     return any(word in command for word in ignore)
+
+def switch_config(file):
+    config = {}
+    level2 = []
+    level3 = []
+    with open(file) as f:
+        commands = f.read().rstrip().split('\n')
+        for command in commands[::-1]:
+            if not check_ignore(command, ignore) and not command.startswith('!') and command.strip() != '':
+                if command.startswith(2 * ' '):
+                    level3.append(command)
+                elif command.startswith(' ') and len(level3) > 0:
+                    level2 = {}
+                    level2[command] = level3[::-1]
+                    level3 = []
+                elif command.startswith(' ') and len(level2) > 0 and level2.isdict():
+                    level2[command] = []
+                elif command.startswith(' ') and len(level2) == 0:
+                    level2 = []
+                    level2.append(command)
+                elif not command.startswith(' ') and len(level2) > 0:
+                    config[command] = level2
+                    level2 = []
+    return config
+
+print(switch_config('config_r1.txt'))
