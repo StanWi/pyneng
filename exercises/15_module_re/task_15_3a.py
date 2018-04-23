@@ -20,3 +20,24 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+#not complete
+import re
+from pprint import pprint
+
+def parse_cfg(file: str) -> list:
+    regex = ('^interface (?P<interface>\S+)'
+             '| ip address (?P<ip>\d+\.\d+\.\d+\.\d+) (?P<mask>\d+\.\d+\.\d+\.\d+)')
+    result = {}
+    with open(file) as f:
+        for line in f:
+            match = re.search(regex, line)
+            if match:
+                if match.lastgroup == 'interface':
+                    interface = match.group(match.lastgroup)
+                    result[interface] = {}
+                elif interface:
+                    result[interface] = match.groups()
+    return result
+
+if __name__ == '__main__':
+    pprint(parse_cfg('config_r1.txt'))

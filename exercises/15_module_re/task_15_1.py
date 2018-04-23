@@ -38,3 +38,19 @@ Loopback100                100.0.0.1       YES manual up                    up
 
 
 '''
+
+from sys import argv
+import re
+
+file, regex = argv[1:]
+
+def find_regex(file: str, regex: str) -> None:
+    with open(file) as f:
+        for line in f:
+            match = re.search(regex, line)
+            if match:
+                print(line.strip())
+                #print(match.group())
+
+if __name__ == '__main__':
+    find_regex(file, regex)

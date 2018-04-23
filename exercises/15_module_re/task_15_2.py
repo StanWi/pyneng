@@ -20,3 +20,17 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+
+import re
+
+def return_match(file: str, regex: str) -> list:
+    result = []
+    with open(file) as f:
+        for line in f:
+            match = re.search(regex, line)
+            if match:
+                result.append(match.group())
+    return result
+
+if __name__ == '__main__':
+    print(return_match('sh_ip_int_br.txt', '(\d+\.)+\d+'))

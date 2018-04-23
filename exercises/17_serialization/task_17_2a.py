@@ -25,3 +25,15 @@
 
 Не копировать код функции parse_sh_cdp_neighbors
 '''
+
+import glob
+from pprint import pprint
+from task_17_2 import parse_sh_cdp_neighbors
+
+if __name__ == '__main__':
+    topology = {}
+    sh_cdp_files = glob.glob('sh_cdp*')
+    for file in sh_cdp_files:
+        with open(file) as f:
+            topology.update(parse_sh_cdp_neighbors(f.read()))
+    pprint(topology)
